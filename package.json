@@ -1,0 +1,23 @@
+{
+  "name": "es-trailing-function-commas",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/transform.js",
+  "bin": {
+    "es-trailing-function-commas": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeffmo/es-trailing-function-commas.git"
+  },
+  "author": "lbljeffmo@gmail.com",
+  "bugs": {
+    "url": "https://github.com/jeffmo/es-trailing-function-commas/issues"
+  },
+  "homepage": "https://github.com/jeffmo/es-trailing-function-commas",
+  "dependencies": {
+    "commander": "^2.3.0",
+    "q": "^1.0.1",
+    "recast": "^0.7.2"
+  }
+}
