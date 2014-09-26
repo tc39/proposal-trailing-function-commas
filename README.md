@@ -1,3 +1,50 @@
-Given source code [potentially] containing function definitions or calls that have trailing commas, strip the trailing commas from the source.
+==Abstract==
+In some codebases/style guides there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:
 
-Also includes a handy CLI you can pipe source text into or provide with a single filename argument to read source text from.
+```js
+ 1: function clownsEverywhere(
+ 2:   param1,
+ 3:   param2
+ 4: ) { /* ... */ }
+ 5: 
+ 6: clownsEverywhere(
+ 7:   'foo',
+ 8:   'bar'
+ 9: );
+```
+
+In these cases, when some other code contributer comes along and adds another parameter to one of these parameter lists, they must make two line updates:
+
+```js
+ 1: function clownsEverywhere(
+ 2:   param1,
+ 3:   param2, // updated to add a comma
+ 4:   param3  // updated to add new parameter
+ 5: ) { /* ... */ }
+ 6: 
+ 7: clownsEverywhere(
+ 8:   'foo',
+ 9:   'bar', // updated to add a comma
+10:   'baz'  // updated to add new parameter
+11: );
+```
+
+In the process of doing this change on code managed by a version control system (git, subversion, mercurial, etc), the blame/annotation code history information for lines 3 and 9 get updated to point at the person who added the comma (rather than the person who originally added the parameter).
+
+To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trialing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:
+
+```js
+ 1: function clownsEverywhere(
+ 2:   param1,
+ 3:   param2, // Next parameter that's added only has to add a new line, not modify this line
+ 5: ) { /* ... */ }
+ 6: 
+ 7: clownsEverywhere(
+ 8:   'foo',
+ 9:   'bar', // Next parameter that's added only has to add a new line, not modify this line
+11: );
+```
+
+This repo contains the proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.
+
+For the CLI, you can either give it a single filename argument to read from disk, or you can pipe source text in to it.
