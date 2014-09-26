@@ -1,4 +1,6 @@
-==Abstract==
+Proposal to allow trailing commas in function parameter lists
+========
+
 In some codebases/style guides there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:
 
 ```js
