@@ -4,12 +4,12 @@ Proposal to allow trailing commas in function parameter lists
 In some codebases/style guides there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:
 
 ```js
- 1: function clownsEverywhere(
+ 1: function puppiesEverywhere(
  2:   param1,
  3:   param2
  4: ) { /* ... */ }
  5: 
- 6: clownsEverywhere(
+ 6: puppiesEverywhere(
  7:   'foo',
  8:   'bar'
  9: );
@@ -18,13 +18,13 @@ In some codebases/style guides there are scenarios that arise where function cal
 In these cases, when some other code contributer comes along and adds another parameter to one of these parameter lists, they must make two line updates:
 
 ```js
- 1: function clownsEverywhere(
+ 1: function puppiesEverywhere(
  2:   param1,
  3:   param2, // updated to add a comma
  4:   param3  // updated to add new parameter
  5: ) { /* ... */ }
  6: 
- 7: clownsEverywhere(
+ 7: puppiesEverywhere(
  8:   'foo',
  9:   'bar', // updated to add a comma
 10:   'baz'  // updated to add new parameter
@@ -36,12 +36,12 @@ In the process of doing this change on code managed by a version control system 
 To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trialing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:
 
 ```js
- 1: function clownsEverywhere(
+ 1: function puppiesEverywhere(
  2:   param1,
  3:   param2, // Next parameter that's added only has to add a new line, not modify this line
  5: ) { /* ... */ }
  6: 
- 7: clownsEverywhere(
+ 7: puppiesEverywhere(
  8:   'foo',
  9:   'bar', // Next parameter that's added only has to add a new line, not modify this line
 11: );
