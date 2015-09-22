@@ -50,4 +50,55 @@ This repo contains the proposal slides, a version of esprima hacked to allow tra
 
 For the CLI, you can either give it a single filename argument to read from disk, or you can pipe source text in to it.
 
+## Spec Text
 
+##### [14.1 Function Declarations](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-function-definitions)
+
+[...]
+
+_FormalParameters_ :<br />
+
+&nbsp;&nbsp;[empty]<br />
+&nbsp;&nbsp;**_FunctionRestParameter_**<br />
+&nbsp;&nbsp;FormalParameterList<br />
+&nbsp;&nbsp;**_FormalParameterList_ ,**<br />
+&nbsp;&nbsp;**_FormalParameterList_ , _FunctionRestParameter_**<br />
+
+_FormalParameterList_ :<br />
+
+&nbsp;&nbsp;**~~_FunctionRestParameter_~~**<br />
+&nbsp;&nbsp;**~~_FormalsList_~~**<br />
+&nbsp;&nbsp;**~~_FormalsList_ , _FunctionRestParameter_~~**<br />
+&nbsp;&nbsp;**_FormalParameter_**<br />
+&nbsp;&nbsp;**_FormalParameterList_ , _FormalParameter_**<br />
+
+**~~_FormalsList_~~** :<br />
+
+&nbsp;&nbsp;**~~_FormalParameter_~~**<br />
+&nbsp;&nbsp;**~~_FormalsList_ , _FormalParameter_~~**<br />
+ 
+##### [A.2 Expressions](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-expressions)
+
+_CallExpression_ :<br />
+
+&nbsp;&nbsp;_MemberExpression_ _Arguments_<br />
+&nbsp;&nbsp;_SuperCall_<br />
+&nbsp;&nbsp;_CallExpression_ _Arguments_<br />
+&nbsp;&nbsp;_CallExpression_ [ _Expression_ ]<br />
+&nbsp;&nbsp;_CallExpression_ . _IdentifierName_<br />
+&nbsp;&nbsp;_CallExpression_ _TemplateLiteral_<br />
+
+_Arguments_ :<br />
+
+&nbsp;&nbsp;( )
+&nbsp;&nbsp;**( ... _AssignmentExpression_ )**
+&nbsp;&nbsp;( _ArgumentList_ )
+&nbsp;&nbsp;**( _ArgumentList_ , )**
+&nbsp;&nbsp;**( _ArgumentList_ , ... _AssignmentExpression_ )**
+
+_ArgumentList_ :<br />
+
+&nbsp;&nbsp;_AssignmentExpression_<br />
+&nbsp;&nbsp;**~~... _AssignmentExpression_~~**<br />
+&nbsp;&nbsp;_ArgumentList_ , _AssignmentExpression_<br />
+&nbsp;&nbsp;**~~_ArgumentList_ , ... _AssignmentExpression_~~**<br />
