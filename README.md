@@ -46,6 +46,8 @@ To help mitigate this problem, some other languages (Python, D, Hack, ...probabl
 11: );
 ```
 
+Note that this proposal is exclusively about grammar and makes no changes to semantics, therefore the presence of a trailing comma has no effect on things like `<<function>>.length`.
+
 This repo contains the proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.
 
 For the CLI, you can either give it a single filename argument to read from disk, or you can pipe source text in to it.
