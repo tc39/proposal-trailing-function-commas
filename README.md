@@ -1,5 +1,4 @@
-Proposal to allow trailing commas in function parameter lists
-========
+# Proposal to allow trailing commas in function parameter lists
 
 In some codebases/style guides there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:
 
@@ -50,3 +49,39 @@ To help mitigate this problem, some other languages (Python, D, Hack, ...probabl
 This repo contains the proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.
 
 For the CLI, you can either give it a single filename argument to read from disk, or you can pipe source text in to it.
+
+## Spec Text
+
+##### [14.1 Function Declarations](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-function-definitions)
+
+[...]
+
+_FormalParameterList_:<br />
+
+&nbsp;&nbsp;_FunctionRestParameter_
+
+_FormalsList_ :<br />
+
+&nbsp;&nbsp;_FormalParameter_<br />
+&nbsp;&nbsp;_FormalsList , _FormalParameter_<br />
+&nbsp;&nbsp;**_FormalsList , _FormalParameter_ ,**<br />
+&nbsp;&nbsp;_FormalsList , _FunctionRestParameter_<br />
+ 
+##### [A.2 Expressions](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-expressions)
+
+_CallExpression_ :<br />
+
+&nbsp;&nbsp;_MemberExpression_ _Arguments_<br />
+&nbsp;&nbsp;_SuperCall_<br />
+&nbsp;&nbsp;_CallExpression_ _Arguments_<br />
+&nbsp;&nbsp;_CallExpression_ [ _Expression_ ]<br />
+&nbsp;&nbsp;_CallExpression_ . _IdentifierName_<br />
+&nbsp;&nbsp;_CallExpression_ _TemplateLiteral_<br />
+
+_ArgumentList_ :<br />
+
+&nbsp;&nbsp;_AssignmentExpression_<br />
+&nbsp;&nbsp;... _AssignmentExpression_<br />
+&nbsp;&nbsp;_ArgumentList_ , _AssignmentExpression_<br />
+&nbsp;&nbsp;**_ArgumentList_ , _AssignmentExpression_ ,**<br />
+&nbsp;&nbsp;_ArgumentList_ , ... _AssignmentExpression_<br />
