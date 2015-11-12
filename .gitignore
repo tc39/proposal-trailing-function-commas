@@ -1,5 +1,9 @@
 *~
 *.swp
 *.DS_STORE
+*.tmp
 npm-debug.log
 node_modules
+index.htm
+ecmarkup.css
+ecmarkup.js

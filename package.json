@@ -17,6 +17,7 @@
   "homepage": "https://github.com/jeffmo/es-trailing-function-commas",
   "dependencies": {
     "commander": "^2.3.0",
+    "ecmarkup": "^2.8.1",
     "q": "^1.0.1",
     "recast": "^0.7.2"
   }

@@ -1,0 +1,350 @@
+<!doctype html>
+<meta charset="utf8">
+<link rel="stylesheet" href="ecmarkup.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+<script src="ecmarkup.js"></script>
+<pre class=metadata>
+title: Trailing Commas in Function Param Lists
+stage: 3
+contributors: Jeff Morrison
+</pre>
+
+<emu-intro id="intro">
+	<h1>Introduction</h1>
+	<p>In some codebases/style guides, there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:</p>
+
+	<pre><code class="javascript">
+    1: function clownPuppiesEverywhere(
+    2:   param1,
+    3:   param2
+    4: ) { /* ... */ }
+    5:  
+    6: clownPuppiesEverywhere(
+    7:   'foo',
+    8:   'bar'
+    9: );
+	</code></pre>
+
+	<p>In these cases, when some other code contributer comes along and adds another parameter to one of these parameter lists, they must make two line updates:</p>
+
+	<pre><code class="javascript">
+     1: function clownPuppiesEverywhere(
+     2:   param1,
+     3:   param2, // updated to add a comma
+     4:   param3  // updated to add new parameter
+     5: ) { /* ... */ }
+     6: 
+     7: clownPuppiesEverywhere(
+     8:   'foo',
+     9:   'bar', // updated to add a comma
+    10:   'baz'  // updated to add new parameter
+    11: );
+	</code></pre>
+
+	<p>In the process of doing this change on code managed by a version control system (git, subversion, mercurial, etc), the blame/annotation code history information for lines 3 and 9 get updated to point at the person who added the comma (rather than the person who originally added the parameter).</p>
+	<p>To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trialing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:</p>
+
+	<pre><code class="javascript">
+     1: function clownPuppiesEverywhere(
+     2:   param1,
+     3:   param2, // Next parameter that's added only has to add a new line, not modify this line
+     5: ) { /* ... */ }
+     6: 
+     7: clownPuppiesEverywhere(
+     8:   'foo',
+     9:   'bar', // Next parameter that's added only has to add a new line, not modify this line
+    11: );
+	</code></pre>
+
+	<p>Note that this proposal is exclusively about grammar and makes no changes to semantics, therefore the presence of a trailing comma has no effect on things like <code class="javascript">&lt;&lt;function&gt;&gt;.length</code>.</p>
+
+	<p><a href="https://github.com/jeffmo/es-trailing-function-commas">This repo</a> contains the original proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.</p>
+</emu-intro>
+
+<emu-clause id="modified-productions">
+  <h1>Modified Productions</h1>
+
+  <emu-clause id="FormalParameters">
+    <h1>|FormalParameters|</h1>
+
+    <emu-production name="FormalParameters" params="Yield">
+      <emu-rhs a="FormalParameters--empty"></emu-rhs>
+      <ins class="block"><emu-rhs><emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
+      <emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt></emu-rhs>
+      <ins class="block"><emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt>,</emu-rhs></ins>
+      <ins class="block"><emu-rhs a="FormalParameters--FormalParameterLise-FunctionRestParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
+    </emu-production>
+
+    <emu-clause id="formal-parameters-static-semantics-boundnames">
+      <h1>Static Semantics: BoundNames</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _names_ be BoundNames of |FormalParameterList|
+          1. Append to _names_ the BoundNames of |FunctionRestParameter|
+          1. Return _names_
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-containsexpression">
+      <h1>Static Semantics: ContainsExpression</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return ContainsExpression of |FormalParameterList|
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-expectedargumentcount">
+      <h1>Static Semantics: ExpectedArgumentCount</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return ExpectedArgumentCount of |FormalParameterList|
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-issimpleparameterlist">
+      <h1>Static Semantics: IsSimpleParameterList</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return <emu-val>false</emu-val>
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-runtime-semantics-iteratorbindinginitialization">
+      <h1>Runtime Semantics: IteratorBindingInitialization</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _restIndex_ be the result of performing IteratorBindingInitialization for |FormalParameterList| using _iteratorRecord_ and _environment_ as the arguments.
+          1. ReturnIfAbrupt(_restIndex_).
+          1. Return the result of performing IteratorBindingInitialization for |FunctionRestParameter| using _iteratorRecord_ and _environment_ as the arguments.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="FormalParameterList">
+    <h1>|FormalParameterList|</h1>
+
+    <emu-production name="FormalParameterList" params="Yield">
+      <emu-rhs>TODO: Remove me after bugfix for del/first-emu-rhs issue</emu-rhs>
+      <del class="block"><emu-rhs a="FormalParameterList--FunctionRestParameter"><emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></del>
+      <del class="block"><emu-rhs><emu-nt params="?Yield">FormalsList</emu-nt></emu-rhs></del>
+      <del class="block"><emu-rhs a="FormalParameterList--FormalsList-FunctionRestParameter"><emu-nt params="?Yield">FormalsList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></del>
+      <ins class="block"><emu-rhs><emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></ins>
+      <ins class="block"><emu-rhs a="FormalParameterList--FormalParameterList-FormalParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></ins>
+    </emu-production>
+
+    <emu-clause id="FormalParameterList--static-semantics-boundnames">
+      <h1>Static Semantics: BoundNames</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalsList-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _names_ be BoundNames of |FormalsList|.
+          1. Append to _names_ th eBoundNames of |FunctionRestParameter|.
+          1. Return _names_.
+        </emu-alg>
+      </del>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _names_ be BoundNames of |FormalParameterList|.
+          1. Append to _names_ the BoundNames of FormalParameter.
+          1. Return _names_.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="FormalParameterList--static-semantics-containsexpression">
+      <h1>Static Semantics: ContainsExpression</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return <emu-t>true</emu-t>.
+        </emu-alg>
+      </del>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalsList-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return ContainsExpression of |FormalsList|.
+        </emu-alg>
+      </del>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. If ContainsExpression of |FormalParameterList| is <emu-t>true</emu-t>, return <emu-t>true</emu-t>.
+          1. Return ContainsExpression of |FormalParameter|.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="FormalParameterList--static-semantics-expectedargumentcount">
+      <h1>Static Semantics: ExpectedArgumentCount</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return <emu-t>0</emu-t>.
+        </emu-alg>
+      </del>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalsList-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return the ExpectedArgumentCount of |FormalsList|.
+          <emu-note>
+            The ExpectedArgumentCount of a |FormalParameterList| is the number of |FormalParameters| to the left of either the rest parameter or the first |FormalParameter| with an Initializer. A |FormalParameter| without an initializer is allowed after the first parameter with an initializer but such parameters are considered to be optional with <emu-t>undefined</emu-t> as their default value.
+          </emu-note>
+        </emu-alg>
+      </del>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _count_ be ExpectedArgumentCount of |FormalParameterList|.
+          1. If HasInitializer of |FormalParameterList| is <emu-t>true</emu-t> or HasInitializer of |FormalParameter| is <emu-t>true</emu-t>, return _count_.
+          1. Return _count_+1.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="FormalParameterList--static-semantics-hasinitializer">
+      <h1>Static Semantics: HasInitializer</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. If HasInitializer of |FormalParameterList| is <emu-t>true</emu-t>, return <emu-t>true</emu-t>.
+          1. Return HasInitializer of |FormalParameter|.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="FormalParameterList--static-semantics-issimpleparameterlist">
+      <h1>Static Semantics: IsSimpleParameterList</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return <emu-t>false</emu-t>.
+        </emu-alg>
+      </del>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalsList-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Return <emu-t>false</emu-t>.
+        </emu-alg>
+      </del>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. If IsSimpleParameterList of |FormalParameterList| is <emu-t>false</emu-t>, return false.
+          1. Return IsSimpleParameterList of |FormalParameter|.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="FormalParameterList--runtime-semantics-iteratorbindinginitialization">
+      <h1>Runtime Semantics: IteratorBindingInitialization</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalsList-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _restIndex_ be the result of performing IteratorBindingInitialization for |FormalsList| using _iteratorRecord_, and _environment_ as the arguments.
+          1. ReturnIfAbrupt(_restIndex_).
+          1. Return the result of performing IteratorBindingInitialization for |FunctionRestParameter| using _iteratorRecord_ and _environment_ as the arguments.
+        </emu-alg>
+      </del>
+
+      <ins class="block">
+        <p><emu-prodref name="FormalParameterList" a="FormalParameterList--FormalParameterList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _restIndex_ be the result of performing IteratorBindingInitialization for |FormalParameterList| using _iteratorRecord_, and _environment_ as the arguments.
+          1. ReturnIfAbrupt(_restIndex_).
+          1. Return the result of performing IteratorBindingInitialization for |FormalParameter| using _iteratorRecord_ and _environment_ as the arguments.
+        </emu-alg>
+      </ins>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="FormalsList">
+    <h1>|FormalsList|</h1>
+    <p>The <emu-nt>FormalsList</emu-nt> production is removed.</p>
+
+    <del class="block">
+      <emu-production name="FormalsList" params="Yield">
+        <!-- TODO: We have inner-<del>s here because it solves some strange nesting issues with del and emu-production -->
+        <emu-rhs>TODO: Remove me after bugfix for del/first-emu-rhs issue</emu-rhs>
+        <del class="block"><emu-rhs a="FormalsList--FormalParameter"><emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></del>
+        <del class="block"><emu-rhs a="FormalsList--FormalsList-FormalParameter"><emu-nt params="?Yield">FormalsList</emu-nt>,<emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></del>
+      </emu-production>
+    </del>
+
+    <emu-clause id="FormalsList--static-semantics-boundnames">
+      <h1>Static Semantics: BoundNames</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalsList" a="FormalsList--FormalsList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _names_ be BoundNames of |FormalsList|.
+          1. Append to _names_ the BoundNames of |FormalParameter|.
+          1. Return _names_.
+        </emu-alg>
+      </del>
+    </emu-clause>
+
+    <emu-clause id="FormalsList--static-semantics-containsexpression">
+      <h1>Static Semantics: ContainsExpression</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalsList" a="FormalsList--FormalsList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. If ContainsExpression of |FormalsList| is <emu-t>true</emu-t>, return <emu-t>true</emu-t>.
+          1. Return ContainsExpression of |FormalParameter|.
+        </emu-alg>
+      </del>
+    </emu-clause>
+
+    <emu-clause id="FormalsList--static-semantics-expectedargumentcount">
+      <h1>Static Semantics: ExpectedArgumentCount</h1>
+
+      <del class="block">
+        <p><emu-prodref name="FormalsList" a="FormalsList--FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. If HasInitializer of |FormalParameter| is <emu-t>true</emu-t>, return <emu-t>0</emu-t>.
+          1. Return <emu-t>1</emu-t>.
+        </emu-alg>
+      </del>
+
+      <del class="block">
+        <p><emu-prodref name="FormalsList" a="FormalsList--FormalsList-FormalParameter" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _count_ be the ExpectedArgumentCount of |FormalsList|.
+          1. If HasInitializer of |FormalsList| is <emu-t>true</emu-t> or HasInitializer of |FormalParameter| is <emu-t>true</emu-t>, return _count_.
+          1. Return _count_+<emu-t>1</emu-t>.
+        </emu-alg>
+      </del>
+    </emu-clause>
+
+  </emu-clause>
+</emu-clause>
+
