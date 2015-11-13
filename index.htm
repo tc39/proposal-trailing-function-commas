@@ -3,5 +3,78 @@
 <link rel="stylesheet" href="ecmarkup.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="ecmarkup.js"></script>
-<title>Trailing Commas in ES Function Parameter Lists</title><script type="application/json" id="menu-search-biblio">{"clauses":{},"ops":{},"productions":{},"terms":{},"examples":{},"notes":{},"tables":{},"figures":{}}</script></head><body><div id="menu-toggle">☰</div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-toc"><ol class="toc"></ol></div></div><h1 class="version">Stage 3 Draft / November 13, 2015</h1><h1 class="title">Trailing Commas in ES Function Parameter Lists</h1>
-</body>
+<title>Trailing Commas in Function Param Lists</title><script type="application/json" id="menu-search-biblio">{"clauses":{"intro":{"location":"","id":"intro","aoid":null,"title":"Introduction","number":""},"sec-copyright-and-software-license":{"location":"","id":"sec-copyright-and-software-license","aoid":null,"title":"Copyright & Software License","number":"A"}},"ops":{},"productions":{},"terms":{},"examples":{},"notes":{},"tables":{},"figures":{}}</script></head><body><div id="menu-toggle">☰</div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#intro" title="Introduction"><span class="secnum"></span> Introduction</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><h1 class="version">Stage 3 Draft / November 13, 2015</h1><h1 class="title">Trailing Commas in Function Param Lists</h1>
+
+<emu-import href="./intro.htm"><emu-intro id="intro">
+	<h1><span class="secnum"></span>Introduction<span class="utils"><span class="anchor"><a href="#intro">#</a></span></span></h1>
+	<p>In some codebases/style guides, there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:</p>
+
+	<pre><code class="javascript hljs">
+    <span class="hljs-number">1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clownPuppiesEverywhere</span>(<span class="hljs-params">
+    2:   param1,
+    3:   param2
+    4: </span>) </span>{ <span class="hljs-comment">/* ... */</span> }
+    <span class="hljs-number">5</span>:  
+    <span class="hljs-number">6</span>: clownPuppiesEverywhere(
+    <span class="hljs-number">7</span>:   <span class="hljs-string">'foo'</span>,
+    <span class="hljs-number">8</span>:   <span class="hljs-string">'bar'</span>
+    <span class="hljs-number">9</span>: );
+	</code></pre>
+
+	<p>In these cases, when some other code contributer comes along and adds another parameter to one of these parameter lists, they must make two line updates:</p>
+
+	<pre><code class="javascript hljs">
+     <span class="hljs-number">1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clownPuppiesEverywhere</span>(<span class="hljs-params">
+     2:   param1,
+     3:   param2, <span class="hljs-comment">// updated to add a comma</span>
+     4:   param3  <span class="hljs-comment">// updated to add new parameter</span>
+     5: </span>) </span>{ <span class="hljs-comment">/* ... */</span> }
+     <span class="hljs-number">6</span>: 
+     <span class="hljs-number">7</span>: clownPuppiesEverywhere(
+     <span class="hljs-number">8</span>:   <span class="hljs-string">'foo'</span>,
+     <span class="hljs-number">9</span>:   <span class="hljs-string">'bar'</span>, <span class="hljs-comment">// updated to add a comma</span>
+    <span class="hljs-number">10</span>:   <span class="hljs-string">'baz'</span>  <span class="hljs-comment">// updated to add new parameter</span>
+    <span class="hljs-number">11</span>: );
+	</code></pre>
+
+	<p>In the process of doing this change on code managed by a version control system (git, subversion, mercurial, etc), the blame/annotation code history information for lines 3 and 9 get updated to point at the person who added the comma (rather than the person who originally added the parameter).</p>
+	<p>To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trialing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:</p>
+
+	<pre><code class="javascript hljs">
+     <span class="hljs-number">1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clownPuppiesEverywhere</span>(<span class="hljs-params">
+     2:   param1,
+     3:   param2, <span class="hljs-comment">// Next parameter that's added only has to add a new line, not modify this line</span>
+     5: </span>) </span>{ <span class="hljs-comment">/* ... */</span> }
+     <span class="hljs-number">6</span>: 
+     <span class="hljs-number">7</span>: clownPuppiesEverywhere(
+     <span class="hljs-number">8</span>:   <span class="hljs-string">'foo'</span>,
+     <span class="hljs-number">9</span>:   <span class="hljs-string">'bar'</span>, <span class="hljs-comment">// Next parameter that's added only has to add a new line, not modify this line</span>
+    <span class="hljs-number">11</span>: );
+	</code></pre>
+
+	<p>Note that this proposal is exclusively about grammar and makes no changes to semantics, therefore the presence of a trailing comma has no effect on things like  <code class="javascript">&lt;&lt;function&gt;&gt;.length</code>.</p>
+
+	<p><a href="https://github.com/jeffmo/es-trailing-function-commas">This repo</a> contains the original proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.</p>
+
+</emu-intro>
+</emu-import>
+<emu-annex id="sec-copyright-and-software-license">
+      <h1><span class="secnum">A</span>Copyright &amp; Software License<span class="utils"><span class="anchor"><a href="#sec-copyright-and-software-license">#</a></span></span></h1>
+      
+      <h2>Copyright Notice</h2>
+      <p>© 2015 Jeff Morrison</p>
+
+      <h2>Software License</h2>
+      <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT http://www.ecma-international.org/memento/codeofconduct.htm FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ol>
+  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+  <li>Neither the name of the authors nor Ecma International may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ol>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+    </emu-annex></body>
