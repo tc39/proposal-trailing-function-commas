@@ -3,9 +3,9 @@
 <link rel="stylesheet" href="ecmarkup.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="ecmarkup.js"></script>
-<title>Trailing Commas in Function Param Lists</title><script type="application/json" id="menu-search-biblio">{"clauses":{"intro":{"location":"","id":"intro","aoid":null,"title":"Introduction","number":""},"sec-copyright-and-software-license":{"location":"","id":"sec-copyright-and-software-license","aoid":null,"title":"Copyright & Software License","number":"A"}},"ops":{},"productions":{},"terms":{},"examples":{},"notes":{},"tables":{},"figures":{}}</script></head><body><div id="menu-toggle">☰</div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#intro" title="Introduction"><span class="secnum"></span> Introduction</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><h1 class="version">Stage 3 Draft / November 13, 2015</h1><h1 class="title">Trailing Commas in Function Param Lists</h1>
+<title>Trailing Commas in Function Param Lists</title><script type="application/json" id="menu-search-biblio">{"clauses":{"intro":{"location":"","id":"intro","aoid":null,"title":"Introduction","number":""},"modified-productions":{"location":"","id":"modified-productions","aoid":null,"title":"Modified Productions","number":"1"},"function-definitions":{"location":"","id":"function-definitions","aoid":null,"title":"|FormalParameters|","number":"1.1"},"formal-parameters-static-semantics-boundnames":{"location":"","id":"formal-parameters-static-semantics-boundnames","aoid":null,"title":"Static Semantics: BoundNames","number":"1.1.1"},"formal-parameters-static-semantics-containsexpression":{"location":"","id":"formal-parameters-static-semantics-containsexpression","aoid":null,"title":"Static Semantics: ContainsExpression","number":"1.1.2"},"formal-parameters-static-semantics-expectedargumentcount":{"location":"","id":"formal-parameters-static-semantics-expectedargumentcount","aoid":null,"title":"Static Semantics: ExpectedArgumentCount","number":"1.1.3"},"formal-parameters-static-semantics-issimpleparameterlist":{"location":"","id":"formal-parameters-static-semantics-issimpleparameterlist","aoid":null,"title":"Static Semantics: IsSimpleParameterList","number":"1.1.4"},"formal-parameters-runtime-semantics-iteratorbindinginitialization":{"location":"","id":"formal-parameters-runtime-semantics-iteratorbindinginitialization","aoid":null,"title":"Runtime Semantics: IteratorBindingInitialization","number":"1.1.5"},"Formal Parameter List":{"location":"","id":"Formal Parameter List","aoid":null,"title":"|FormalParameterList|","number":"1.2"},"Formals List":{"location":"","id":"Formals List","aoid":null,"title":"|FormalsList|","number":"1.3"},"sec-copyright-and-software-license":{"location":"","id":"sec-copyright-and-software-license","aoid":null,"title":"Copyright & Software License","number":"A"}},"ops":{},"productions":{"prod-FormalParameters":{"id":"prod-FormalParameters","location":"","name":"FormalParameters"},"prod-FormalParameterList":{"id":"prod-FormalParameterList","location":"","name":"FormalParameterList"},"prod-FormalsList":{"id":"prod-FormalsList","location":"","name":"FormalsList"}},"terms":{},"examples":{},"notes":{},"tables":{},"figures":{}}</script></head><body><div id="menu-toggle">☰</div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#intro" title="Introduction"><span class="secnum"></span> Introduction</a></li><li><span class="item-toggle">◢</span><a href="#modified-productions" title="Modified Productions"><span class="secnum">1</span> Modified Productions</a><ol class="toc"><li><span class="item-toggle">◢</span><a href="#function-definitions" title="|FormalParameters|"><span class="secnum">1.1</span> <emu-nt>FormalParameters</emu-nt></a><ol class="toc"><li><span class="item-toggle-none"></span><a href="#formal-parameters-static-semantics-boundnames" title="Static Semantics: BoundNames"><span class="secnum">1.1.1</span> SS: BoundNames</a></li><li><span class="item-toggle-none"></span><a href="#formal-parameters-static-semantics-containsexpression" title="Static Semantics: ContainsExpression"><span class="secnum">1.1.2</span> SS: ContainsExpression</a></li><li><span class="item-toggle-none"></span><a href="#formal-parameters-static-semantics-expectedargumentcount" title="Static Semantics: ExpectedArgumentCount"><span class="secnum">1.1.3</span> SS: ExpectedArgumentCount</a></li><li><span class="item-toggle-none"></span><a href="#formal-parameters-static-semantics-issimpleparameterlist" title="Static Semantics: IsSimpleParameterList"><span class="secnum">1.1.4</span> SS: IsSimpleParameterList</a></li><li><span class="item-toggle-none"></span><a href="#formal-parameters-runtime-semantics-iteratorbindinginitialization" title="Runtime Semantics: IteratorBindingInitialization"><span class="secnum">1.1.5</span> RS: IteratorBindingInitialization</a></li></ol></li><li><span class="item-toggle-none"></span><a href="#Formal Parameter List" title="|FormalParameterList|"><span class="secnum">1.2</span> <emu-nt>FormalParameterList</emu-nt></a></li><li><span class="item-toggle-none"></span><a href="#Formals List" title="|FormalsList|"><span class="secnum">1.3</span> <emu-nt>FormalsList</emu-nt></a></li></ol></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License"><span class="secnum">A</span> Copyright &amp; Software License</a></li></ol></div></div><h1 class="version">Stage 3 Draft / November 16, 2015</h1><h1 class="title">Trailing Commas in Function Param Lists</h1>
 
-<emu-import href="./intro.htm"><emu-intro id="intro">
+<emu-intro id="intro">
 	<h1><span class="secnum"></span>Introduction<span class="utils"><span class="anchor"><a href="#intro">#</a></span></span></h1>
 	<p>In some codebases/style guides, there are scenarios that arise where function calls and definitions are split across multiple lines in the style of:</p>
 
@@ -55,10 +55,125 @@
 	<p>Note that this proposal is exclusively about grammar and makes no changes to semantics, therefore the presence of a trailing comma has no effect on things like  <code class="javascript">&lt;&lt;function&gt;&gt;.length</code>.</p>
 
 	<p><a href="https://github.com/jeffmo/es-trailing-function-commas">This repo</a> contains the original proposal slides, a version of esprima hacked to allow trailing commas in parameter lists, and a very simple CLI utility to show that it's possible (and easy) to transpile trailing commas to ES5-compatible non-trailing commas in a build step.</p>
-
 </emu-intro>
-</emu-import>
-<emu-annex id="sec-copyright-and-software-license">
+
+<emu-clause id="modified-productions">
+  <h1><span class="secnum">1</span>Modified Productions<span class="utils"><span class="anchor"><a href="#modified-productions">#</a></span></span></h1>
+
+  <emu-clause id="function-definitions">
+    <h1><span class="secnum">1.1</span><emu-nt><a href="#prod-FormalParameters">FormalParameters</a></emu-nt><span class="utils"><span class="anchor"><a href="#function-definitions">#</a></span></span></h1>
+
+    <emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs>
+      <ins class="block"><emu-rhs a="function-rest-param"><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></ins>
+      <emu-rhs a="formal-param-list"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs>
+      <ins class="block"><emu-rhs a="formal-param-list-comma"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t></emu-rhs></ins>
+      <ins class="block"><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></ins>
+    </emu-production>
+
+    <emu-clause id="formal-parameters-static-semantics-boundnames">
+      <h1><span class="secnum">1.1.1</span>Static Semantics: BoundNames<span class="utils"><span class="anchor"><a href="#formal-parameters-static-semantics-boundnames">#</a></span></span></h1>
+
+      <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="empty" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs></emu-production></p>
+      <emu-alg><ol><li>Return an empty <emu-xref href="#sec-list-and-record-specification-type"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-list-and-record-specification-type">List</a></emu-xref>
+      </li></ol></emu-alg>
+
+      <ins class="block">
+        <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="formal-param-list-comma-function-rest-param" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></emu-production></p>
+        <emu-alg><ol><li>Let <var>names</var> be BoundNames of <emu-nt><a href="#prod-FormalParameterList">FormalParameterList</a></emu-nt></li><li>Append to <var>names</var> the BoundNames of <emu-nt><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a></emu-nt></li><li>Return <var>names</var>
+        </li></ol></emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-containsexpression">
+      <h1><span class="secnum">1.1.2</span>Static Semantics: ContainsExpression<span class="utils"><span class="anchor"><a href="#formal-parameters-static-semantics-containsexpression">#</a></span></span></h1>
+
+      <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="empty" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs></emu-production></p>
+      <emu-alg><ol><li>Return <emu-val>false</emu-val>
+      </li></ol></emu-alg>
+
+      <ins class="block">
+        <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="formal-param-list-comma-function-rest-param" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></emu-production></p>
+        <emu-alg><ol><li>Return ContainsExpression of <emu-nt><a href="#prod-FormalParameterList">FormalParameterList</a></emu-nt>
+        </li></ol></emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-expectedargumentcount">
+      <h1><span class="secnum">1.1.3</span>Static Semantics: ExpectedArgumentCount<span class="utils"><span class="anchor"><a href="#formal-parameters-static-semantics-expectedargumentcount">#</a></span></span></h1>
+
+      <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="empty" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs></emu-production></p>
+      <emu-alg><ol><li>Return <emu-val>0</emu-val>
+      </li></ol></emu-alg>
+
+      <ins class="block">
+        <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="formal-param-list-comma-function-rest-param" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></emu-production></p>
+        <emu-alg><ol><li>Return ExpectedArgumentCount of <emu-nt><a href="#prod-FormalParameterList">FormalParameterList</a></emu-nt>
+        </li></ol></emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-static-semantics-issimpleparameterlist">
+      <h1><span class="secnum">1.1.4</span>Static Semantics: IsSimpleParameterList<span class="utils"><span class="anchor"><a href="#formal-parameters-static-semantics-issimpleparameterlist">#</a></span></span></h1>
+
+      <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="empty" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs></emu-production></p>
+      <emu-alg><ol><li>Return <emu-val>true</emu-val>
+      </li></ol></emu-alg>
+
+      <ins class="block">
+        <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="formal-param-list-comma-function-rest-param" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></emu-production></p>
+        <emu-alg><ol><li>Return <emu-val>false</emu-val>
+        </li></ol></emu-alg>
+      </ins>
+    </emu-clause>
+
+    <emu-clause id="formal-parameters-runtime-semantics-iteratorbindinginitialization">
+      <h1><span class="secnum">1.1.5</span>Runtime Semantics: IteratorBindingInitialization<span class="utils"><span class="anchor"><a href="#formal-parameters-runtime-semantics-iteratorbindinginitialization">#</a></span></span></h1>
+
+      <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="empty" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="empty"><emu-t>[Empty]</emu-t></emu-rhs></emu-production></p>
+      <emu-alg><ol><li>Return <a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-normalcompletion">NormalCompletion</a>(<emu-const>empty</emu-const>)
+      </li></ol></emu-alg>
+
+      <ins class="block">
+        <p><emu-production name="FormalParameters" params="Yield" id="prod-FormalParameters" a="formal-param-list-comma-function-rest-param" class="inline" collapsed="">
+      <emu-nt params="Yield"><a href="#prod-FormalParameters">FormalParameters</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><emu-rhs a="formal-param-list-comma-function-rest-param"><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></emu-production></p>
+        <emu-alg><ol><li>Let <var>restIndex</var> be the result of performing IteratorBindingInitialization for <emu-nt><a href="#prod-FormalParameterList">FormalParameterList</a></emu-nt> using <var>iteratorRecord</var> and <var>environment</var> as the arguments.</li><li><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#sec-returnifabrupt">ReturnIfAbrupt</a>(<var>restIndex</var>).</li><li>Return the result of performing IteratorBindingInitialization for <emu-nt><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a></emu-nt> using <var>iteratorRecord</var> and <var>environment</var> as the arguments.
+        </li></ol></emu-alg>
+      </ins>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="Formal Parameter List">
+    <h1><span class="secnum">1.2</span><emu-nt><a href="#prod-FormalParameterList">FormalParameterList</a></emu-nt><span class="utils"><span class="anchor"><a href="#Formal Parameter List">#</a></span></span></h1>
+
+    <emu-production name="FormalParameterList" params="Yield" id="prod-FormalParameterList">
+      <emu-nt params="Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq><del class="block"><emu-rhs><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></del>
+      <del class="block"><emu-rhs><emu-nt params="?Yield"><a href="#prod-FormalsList">FormalsList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></del>
+      <del class="block"><emu-rhs><emu-nt params="?Yield"><a href="#prod-FormalsList">FormalsList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FunctionRestParameter">FunctionRestParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></del>
+      <ins class="block"><emu-rhs><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FormalParameter">FormalParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></ins>
+      <ins class="block"><emu-rhs><emu-nt params="?Yield"><a href="#prod-FormalParameterList">FormalParameterList</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt><emu-t>,</emu-t><emu-nt params="?Yield"><a href="http://www.ecma-international.org/ecma-262/6.0/index.html#prod-FormalParameter">FormalParameter</a><emu-mods><emu-params>[?Yield]</emu-params></emu-mods></emu-nt></emu-rhs></ins>
+    </emu-production>
+  </emu-clause>
+
+  <emu-clause id="Formals List">
+    <h1><span class="secnum">1.3</span><emu-nt><a href="#prod-FormalsList">FormalsList</a></emu-nt><span class="utils"><span class="anchor"><a href="#Formals List">#</a></span></span></h1>
+    <p>The  <emu-nt><a href="#prod-FormalsList">FormalsList</a></emu-nt> production is removed.</p>
+
+    <del class="block">
+      <emu-production name="FormalsList" params="Yield" id="prod-FormalsList" class=" inline">
+      <emu-nt params="Yield"><a href="#prod-FormalsList">FormalsList</a><emu-mods><emu-params>[Yield]</emu-params></emu-mods></emu-nt><emu-geq>:</emu-geq></emu-production>
+    </del>
+  </emu-clause>
+</emu-clause><emu-annex id="sec-copyright-and-software-license">
       <h1><span class="secnum">A</span>Copyright &amp; Software License<span class="utils"><span class="anchor"><a href="#sec-copyright-and-software-license">#</a></span></span></h1>
       
       <h2>Copyright Notice</h2>
@@ -77,4 +192,6 @@
 
 <p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-    </emu-annex></body>
+    </emu-annex>
+
+</body>
