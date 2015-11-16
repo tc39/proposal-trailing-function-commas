@@ -32,7 +32,7 @@ In these cases, when some other code contributer comes along and adds another pa
 
 In the process of doing this change on code managed by a version control system (git, subversion, mercurial, etc), the blame/annotation code history information for lines 3 and 9 get updated to point at the person who added the comma (rather than the person who originally added the parameter).
 
-To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trialing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:
+To help mitigate this problem, some other languages (Python, D, Hack, ...probably others...) have added grammar support to allow a trailing comma in these parameter lists. This allows code contributors to always end a parameter addition with a trailing comma in one of these per-line parameter lists and never have to worry about the code attribution problem again:
 
 ```js
  1: function clownPuppiesEverywhere(
