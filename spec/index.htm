@@ -72,14 +72,14 @@ contributors: Jeff Morrison
       <ins class="block"><emu-rhs><emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
       <emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt></emu-rhs>
       <ins class="block"><emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt>,</emu-rhs></ins>
-      <ins class="block"><emu-rhs a="FormalParameters--FormalParameterLise-FunctionRestParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
+      <ins class="block"><emu-rhs a="FormalParameters--FormalParameterList-FunctionRestParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
     </emu-production>
 
     <emu-clause id="formal-parameters-static-semantics-boundnames">
       <h1>Static Semantics: BoundNames</h1>
 
       <ins class="block">
-        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterList-FunctionRestParameter" class="inline"></emu-prodref></p>
         <emu-alg>
           1. Let _names_ be BoundNames of |FormalParameterList|
           1. Append to _names_ the BoundNames of |FunctionRestParameter|
@@ -92,7 +92,7 @@ contributors: Jeff Morrison
       <h1>Static Semantics: ContainsExpression</h1>
 
       <ins class="block">
-        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterList-FunctionRestParameter" class="inline"></emu-prodref></p>
         <emu-alg>
           1. Return ContainsExpression of |FormalParameterList|
         </emu-alg>
@@ -103,7 +103,7 @@ contributors: Jeff Morrison
       <h1>Static Semantics: ExpectedArgumentCount</h1>
 
       <ins class="block">
-        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterList-FunctionRestParameter" class="inline"></emu-prodref></p>
         <emu-alg>
           1. Return ExpectedArgumentCount of |FormalParameterList|
         </emu-alg>
@@ -114,7 +114,7 @@ contributors: Jeff Morrison
       <h1>Static Semantics: IsSimpleParameterList</h1>
 
       <ins class="block">
-        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterList-FunctionRestParameter" class="inline"></emu-prodref></p>
         <emu-alg>
           1. Return <emu-val>false</emu-val>
         </emu-alg>
@@ -125,7 +125,7 @@ contributors: Jeff Morrison
       <h1>Runtime Semantics: IteratorBindingInitialization</h1>
 
       <ins class="block">
-        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterLise-FunctionRestParameter" class="inline"></emu-prodref></p>
+        <p><emu-prodref name="FormalParameters" a="FormalParameters--FormalParameterList-FunctionRestParameter" class="inline"></emu-prodref></p>
         <emu-alg>
           1. Let _restIndex_ be the result of performing IteratorBindingInitialization for |FormalParameterList| using _iteratorRecord_ and _environment_ as the arguments.
           1. ReturnIfAbrupt(_restIndex_).
