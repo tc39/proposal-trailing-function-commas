@@ -71,8 +71,10 @@ contributors: Jeff Morrison
       <emu-rhs a="FormalParameters--empty"></emu-rhs>
       <ins class="block"><emu-rhs><emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
       <emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt></emu-rhs>
-      <ins class="block"><emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt>,</emu-rhs></ins>
-      <ins class="block"><emu-rhs a="FormalParameters--FormalParameterList-FunctionRestParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></ins>
+      <ins class="block">
+      	<emu-rhs><emu-nt params="?Yield">FormalParameterList</emu-nt>,</emu-rhs>
+      	<emu-rhs a="FormalParameters--FormalParameterList-FunctionRestParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs>
+      </ins>
     </emu-production>
 
     <emu-clause id="formal-parameters-static-semantics-boundnames">
