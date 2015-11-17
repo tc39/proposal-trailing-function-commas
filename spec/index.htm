@@ -145,8 +145,10 @@ contributors: Jeff Morrison
       <del class="block"><emu-rhs a="FormalParameterList--FunctionRestParameter"><emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></del>
       <del class="block"><emu-rhs><emu-nt params="?Yield">FormalsList</emu-nt></emu-rhs></del>
       <del class="block"><emu-rhs a="FormalParameterList--FormalsList-FunctionRestParameter"><emu-nt params="?Yield">FormalsList</emu-nt>,<emu-nt params="?Yield">FunctionRestParameter</emu-nt></emu-rhs></del>
-      <ins class="block"><emu-rhs><emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></ins>
-      <ins class="block"><emu-rhs a="FormalParameterList--FormalParameterList-FormalParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs></ins>
+      <ins class="block">
+      	<emu-rhs><emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs>
+      	<emu-rhs a="FormalParameterList--FormalParameterList-FormalParameter"><emu-nt params="?Yield">FormalParameterList</emu-nt>,<emu-nt params="?Yield">FormalParameter</emu-nt></emu-rhs>
+      </ins>
     </emu-production>
 
     <emu-clause id="FormalParameterList--static-semantics-boundnames">
