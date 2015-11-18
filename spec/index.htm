@@ -64,6 +64,83 @@ contributors: Jeff Morrison
 <emu-clause id="modified-productions">
   <h1>Modified Productions</h1>
 
+  <emu-clause id="Arguments">
+    <h1>|Arguments|</h1>
+
+    <emu-production name="Arguments" params="Yield">
+      <emu-rhs>()</emu-rhs>
+      <emu-rhs>(<emu-nt params="?Yield">ArgumentList</emu-nt>)</emu-rhs>
+      <ins class="block">
+        <emu-rhs>(<emu-nt params="?Yield">ArgumentList</emu-nt>,)</emu-rhs>
+        <emu-rhs a="Arguments--ArgumentList-AssignmentExpression">(<emu-nt params="?Yield">ArgumentList</emu-nt>, ...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt>)</emu-rhs>
+      </ins>
+    </emu-production>
+
+    <emu-clause id="arguments-runtime-semantics-argumentlistevaluation">
+      <h1>Runtime Semantics: ArgumentListEvaluation</h1>
+
+      <ins class="block">
+        <p><emu-prodref name="Arguments" a="Arguments--ArgumentList-AssignmentExpression" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _list_ be ArgumentListEvaluation of |ArgumentList|
+          1. Let _spreadRef_ be the result of evaluation |AssignmentExpression|
+          1. Let _spreadObj_ be GetValue(_spreadRef_)
+          1. Let _iterator_ be ?GetIterator(_spreadObj_)
+          1. Repeat
+            1. Let _next be ?IteratorStep(_iterator_)
+            1. If _next_ is <emu-t>false</emu-t>, return _list_.
+            1. Let _nextArg_ be ?IteratorValue(_next_)
+            1. Append _nextArg_ as the last element of _list_
+        </emu-alg>
+      </ins>
+    </emu-clause>
+  </emu-clause>
+
+  <emu-clause id="ArgumentList">
+    <h1>|ArgumentList|</h1>
+    
+    <emu-production name="ArgumentList" params="Yield">
+      <emu-rhs><emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs>
+      <del class="block"><emu-rhs a="ArgumentList--elipses-AssignmentExpression">...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs></del>
+      <emu-rhs><emu-nt params="?Yield">ArgumentList</emu-nt>,<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs>
+      <del class="block"><emu-rhs><emu-nt params="?Yield">ArgumentList</emu-nt>, ...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs></del>
+    </emu-production>
+
+    <emu-clause id="argument-list-runtime-semantics-argumentlistevaluation">
+      <h1>Runtime Semantics: ArgumentListEvaluation</h1>
+
+      <del class="block">
+        <p><emu-prodref name="ArgumentList" a="ArgumentList--elipses-AssignmentExpression" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _list_ be an empty List.
+          1. Let _spreadRef_ be the result of evaluation |AssignmentExpression|
+          1. Let _spreadObj_ be GetValue(_spreadRef_)
+          1. Let _iterator_ be ?GetIterator(_spreadObj_)
+          1. Repeat
+            1. Let _next be ?IteratorStep(_iterator_)
+            1. If _next_ is <emu-t>false</emu-t>, return _list_.
+            1. Let _nextArg_ be ?IteratorValue(_next_)
+            1. Append _nextArg_ as the last element of _list_
+        </emu-alg>
+      </del>
+
+      <del class="block">
+        <p><emu-prodref name="ArgumentList" a="ArgumentList--ArgumentList-elipses-AssignmentExpression" class="inline"></emu-prodref></p>
+        <emu-alg>
+          1. Let _precedingArgs_ be the result of evaluating |ArgumentList|.
+          1. Let _spreadRef_ be the result of evaluation |AssignmentExpression|
+          1. Let _spreadObj_ be GetValue(_spreadRef_)
+          1. Let _iterator_ be ?GetIterator(_spreadObj_)
+          1. Repeat
+            1. Let _next be ?IteratorStep(_iterator_)
+            1. If _next_ is <emu-t>false</emu-t>, return _precedingArgs_.
+            1. Let _nextArg_ be ?IteratorValue(_next_)
+            1. Append _nextArg_ as the last element of _list_
+        </emu-alg>
+      </del>
+    </emu-clause>
+  </emu-clause>
+
   <emu-clause id="FormalParameters">
     <h1>|FormalParameters|</h1>
 
@@ -348,7 +425,6 @@ contributors: Jeff Morrison
         </emu-alg>
       </del>
     </emu-clause>
-
   </emu-clause>
 </emu-clause>
 
