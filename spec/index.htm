@@ -87,7 +87,7 @@ contributors: Jeff Morrison
           1. Let _spreadObj_ be GetValue(_spreadRef_)
           1. Let _iterator_ be ?GetIterator(_spreadObj_)
           1. Repeat
-            1. Let _next be ?IteratorStep(_iterator_)
+            1. Let _next_ be ?IteratorStep(_iterator_)
             1. If _next_ is <emu-t>false</emu-t>, return _list_.
             1. Let _nextArg_ be ?IteratorValue(_next_)
             1. Append _nextArg_ as the last element of _list_
@@ -103,7 +103,7 @@ contributors: Jeff Morrison
       <emu-rhs><emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs>
       <del class="block"><emu-rhs a="ArgumentList--elipses-AssignmentExpression">...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs></del>
       <emu-rhs><emu-nt params="?Yield">ArgumentList</emu-nt>,<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs>
-      <del class="block"><emu-rhs><emu-nt params="?Yield">ArgumentList</emu-nt>, ...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs></del>
+      <del class="block"><emu-rhs a="ArgumentList--ArgumentList-elipses-AssignmentExpression"><emu-nt params="?Yield">ArgumentList</emu-nt>, ...<emu-nt params="In, ?Yield">AssignmentExpression</emu-nt></emu-rhs></del>
     </emu-production>
 
     <emu-clause id="argument-list-runtime-semantics-argumentlistevaluation">
@@ -117,7 +117,7 @@ contributors: Jeff Morrison
           1. Let _spreadObj_ be GetValue(_spreadRef_)
           1. Let _iterator_ be ?GetIterator(_spreadObj_)
           1. Repeat
-            1. Let _next be ?IteratorStep(_iterator_)
+            1. Let _next_ be ?IteratorStep(_iterator_)
             1. If _next_ is <emu-t>false</emu-t>, return _list_.
             1. Let _nextArg_ be ?IteratorValue(_next_)
             1. Append _nextArg_ as the last element of _list_
@@ -132,7 +132,7 @@ contributors: Jeff Morrison
           1. Let _spreadObj_ be GetValue(_spreadRef_)
           1. Let _iterator_ be ?GetIterator(_spreadObj_)
           1. Repeat
-            1. Let _next be ?IteratorStep(_iterator_)
+            1. Let _next_ be ?IteratorStep(_iterator_)
             1. If _next_ is <emu-t>false</emu-t>, return _precedingArgs_.
             1. Let _nextArg_ be ?IteratorValue(_next_)
             1. Append _nextArg_ as the last element of _list_
