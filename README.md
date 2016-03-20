@@ -14,7 +14,7 @@ In some codebases/style guides there are scenarios that arise where function cal
  9: );
 ```
 
-In these cases, when some other code contributer comes along and adds another parameter to one of these parameter lists, they must make two line updates:
+In these cases, when some other code contributor comes along and adds another parameter to one of these parameter lists, they must make two line updates:
 
 ```js
  1: function clownPuppiesEverywhere(
